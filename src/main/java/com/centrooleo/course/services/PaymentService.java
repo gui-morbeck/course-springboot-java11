@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.centrooleo.course.entities.Payment;
 import com.centrooleo.course.repositories.PaymentRepository;
+import com.centrooleo.course.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class PaymentService {
@@ -22,7 +23,7 @@ public class PaymentService {
 	
 	public Payment findById(Long id) {
 		Optional<Payment> obj = repository.findById(id);
-		return obj.get();
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 	
 }

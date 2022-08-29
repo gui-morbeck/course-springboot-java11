@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.centrooleo.course.entities.Order;
 import com.centrooleo.course.repositories.OrderRepository;
+import com.centrooleo.course.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class OrderService {
@@ -22,7 +23,7 @@ public class OrderService {
 	
 	public Order findById(Long id) {
 		Optional<Order> obj = orderRepository.findById(id);
-		return obj.get();	
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));	
 	}
 	
 }

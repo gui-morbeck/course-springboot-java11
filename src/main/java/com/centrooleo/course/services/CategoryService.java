@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.centrooleo.course.entities.Category;
 import com.centrooleo.course.repositories.CategoryRepository;
+import com.centrooleo.course.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class CategoryService {
@@ -22,7 +23,7 @@ public class CategoryService {
 	
 	public Category findById(Long id) {
 		Optional<Category> obj = catRepository.findById(id);
-		return obj.get();
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 
 }
